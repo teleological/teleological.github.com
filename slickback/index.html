@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Slickback example</title>
+    <link rel="stylesheet" href="./vendor/slickgrid-1.4.3/css/slick.grid.css"/>
+    <link rel="stylesheet" href="./vendor/slickgrid-1.4.3/css/slick.pager.css"/>
+    <link rel="stylesheet" href="./vendor/jquery-ui-1.8.14/css/smoothness/jquery-ui-1.8.14.custom.css"/>
+
+    <link rel="stylesheet" href="example.css"/>
+  </head>
+
+  <body>
+
+    <h2>Slickback</h2>
+
+    <p>
+    <a href="http://github.com/teleological/slickback">Slickback</a>
+    adapts 
+    <a href="http://documentcloud.github.com/backbone/">Backbone</a>
+    collections to work with
+    <a href="http://github.com/mleibman/SlickGrid">SlickGrid</a>,
+    a jQuery-backed datagrid.
+
+    Extensions include support for paginating collections 
+    and composing filtered queries using an interface modeled 
+    after Ruby on Rails ActiveRecord's "named scopes".
+
+    This page embeds an example using a simulated datasource
+    that supports pagination and sorting. A suite of browser-based
+    unit tests can be run <a href="test.html">here</a>.
+    </p>
+
+    <p>
+    Slickback, like Backbone and SlickGrid, is released under the
+    MIT license. Source code, documentation and issue tracking is hosted at
+    <a href="http://github.com/teleological/slickback">Github</a>.
+    </p>
+
+    <div id="example">
+      <div id="exampleGrid"></div>
+      <div id="examplePager"></div>
+    </div>
+
+    <script src="./vendor/jquery-1.6.2.js"></script>
+    <script src="./vendor/underscore-1.1.7/underscore.js"></script>
+    <!-- NOTE: jquery and underscore must precede backbone -->
+    <script src="./vendor/backbone-0.5.3/backbone.js"></script>
+    <script src="./vendor/jquery-ui-1.8.14/jquery-ui-1.8.14.custom.min.js"></script>
+    <script src="./vendor/jquery.event.drag-2.0.js"></script>
+    <script src="./vendor/slickgrid-1.4.3/slick.grid.js"></script>
+    <script src="./vendor/slickgrid-1.4.3/slick.pager.js"></script>
+
+    <script src="slickback.min.js"></script>
+
+    <script src="model.js"></script>
+    <script src="view.js"></script>
+
+    <script>
+      $(function() {
+        var products = new Example.Collections.Products();
+        var view     = new Example.Views.ProductsGrid({
+          el:         '#exampleGrid',
+          collection: products,
+          pager:      $('#examplePager')
+        });
+      });
+    </script>
+  </body>
+
+</html>
