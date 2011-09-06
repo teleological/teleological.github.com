@@ -1,11 +1,11 @@
 (function() {
   "use strict";
 
-  describe("Slickback.PaginatedCollection", function() {
+  describe("Slickback.Collection", function() {
 
     var collection;
     beforeEach(function() {
-      collection = new Slickback.PaginatedCollection();
+      collection = new Slickback.Collection();
     });
 
     describe("#initialize", function() {
@@ -29,43 +29,35 @@
         });
       });
 
-      // PaginatedCollectionMixin
-
-      it("installs #parseWithPagination as #parse", function() {
-        expect(collection.parse).toBe(collection.parseWithPagination);
-      });
-
-      it("installs #addWithPagination as #add", function() {
-        expect(collection.add).toBe(collection.addWithPagination);
-      });
-
       // EventTranslationMixin
 
       var eventNames = ['reset','add','remove'];
       _.each(eventNames,function(eventName) {
         describe("Backbone event " + eventName, function() {
           it("is translated to Slick.Grid notifications", function() {
-            collection.onPagingInfoChanged.notify
-              = jasmine.createSpy('onPagingInfoChanged#notify');
             collection.onRowCountChanged.notify
               = jasmine.createSpy('onRowCountChanged#notify');
             collection.onRowsChanged.notify
               = jasmine.createSpy('onRowsChanged#notify');
+            collection.onPagingInfoChanged.notify
+              = jasmine.createSpy('onPagingInfoChanged#notify');
 
             collection.trigger(eventName);
 
-            expect(collection.onPagingInfoChanged.notify).
-              toHaveBeenCalled();
             expect(collection.onRowCountChanged.notify).
               toHaveBeenCalled();
             expect(collection.onRowsChanged.notify).
               toHaveBeenCalled();
+
+            // getPagingInfo is not installed
+            expect(collection.onPagingInfoChanged.notify).
+              wasNotCalled()
           });
         });
       });
 
     }); // #initialize
 
-  }); // Slickback.PaginatedCollection
+  }); // Slickback.Collection
 
 }).call(this);
